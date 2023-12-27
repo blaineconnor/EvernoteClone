@@ -1,0 +1,24 @@
+﻿<dx:ThemedWindow xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" 
+    x:Class="EvernoteClone.Views.NotesWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    Title="NotesWindow" Height="300" Width="300" >
+
+    <dx:DXDockPanel>
+        <Menu DockPanel.Dock="Top">
+            <dxb:MainMenuControl>
+                <dxb:BarItemMenuHeader Content="File">
+
+                    <dxb:BarButtonItem Content="New Notebook"/>
+                    <dxb:BarButtonItem Content="New Note"/>
+                </dxb:BarItemMenuHeader>
+
+            </dxb:MainMenuControl>
+          
+        </Menu>
+        <Grid>
+            
+        </Grid>
+    </dx:DXDockPanel>
+</dx:ThemedWindow>
