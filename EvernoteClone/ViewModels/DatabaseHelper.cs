@@ -1,5 +1,4 @@
-﻿using DevExpress.Xpf.Bars;
-using SQLite;
+﻿using SQLite;
 using System;
 using System.Collections.Generic;
 using System.IO;

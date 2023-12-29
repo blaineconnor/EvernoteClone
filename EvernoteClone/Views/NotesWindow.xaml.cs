@@ -1,16 +1,6 @@
-﻿using DevExpress.Xpf.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using DevExpress.Xpf.Bars;
+using DevExpress.Xpf.Core;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 
 namespace EvernoteClone.Views
@@ -23,6 +13,16 @@ namespace EvernoteClone.Views
         public NotesWindow()
         {
             InitializeComponent();
+        }
+
+        private void Exit_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void SpeechButton_Click(object sender, ItemClickEventArgs e)
+        {
+
         }
     }
 }

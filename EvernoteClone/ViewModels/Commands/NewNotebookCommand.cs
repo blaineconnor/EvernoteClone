@@ -16,7 +16,7 @@ namespace EvernoteClone.ViewModels.Commands
 
         public void Execute(object parameter)
         {
-            throw new NotImplementedException();
+            VM.CreateNotebook();          
         }
     }
 }

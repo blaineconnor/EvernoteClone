@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EvernoteClone.Models;
+using System;
 using System.Windows.Input;
 
 namespace EvernoteClone.ViewModels.Commands
@@ -11,12 +12,16 @@ namespace EvernoteClone.ViewModels.Commands
         public NewNoteCommand(NotesVM vM) { VM = vM; }
         public bool CanExecute(object parameter)
         {
-            return true;
+            Notebook selectedNotebook = parameter as Notebook;
+            if (selectedNotebook != null)
+                return true;
+            return false;
         }
 
         public void Execute(object parameter)
         {
-            throw new NotImplementedException();
+            Notebook selectedNotebook = parameter as Notebook;
+            VM.CreateNote(selectedNotebook.Id);
         }
     }
 }

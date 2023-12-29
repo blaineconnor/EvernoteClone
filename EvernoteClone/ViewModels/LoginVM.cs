@@ -1,4 +1,5 @@
-﻿using EvernoteClone.Models.Entities;
+﻿
+using EvernoteClone.Models;
 using EvernoteClone.ViewModels.Commands;
 
 namespace EvernoteClone.ViewModels

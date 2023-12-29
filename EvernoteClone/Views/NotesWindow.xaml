@@ -1,24 +1,54 @@
-﻿<dx:ThemedWindow xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" 
+﻿<dx:ThemedWindow xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"  xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" 
     x:Class="EvernoteClone.Views.NotesWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
-    Title="NotesWindow" Height="300" Width="300" >
+    xmlns:local="clr-namespace:EvernoteClone.Views"
+    xmlns:vm="clr-namespace:EvernoteClone.ViewModels"
+    Title="NotesWindow" Height="450" Width="800" >
 
-    <dx:DXDockPanel>
-        <Menu DockPanel.Dock="Top">
-            <dxb:MainMenuControl>
-                <dxb:BarItemMenuHeader Content="File">
+    <Window.Resources>
+        <vm:NotesVM x:Key="viewModel"/>
+    </Window.Resources>
+    <dx:DXDockPanel DataContext="{StaticResource viewModel}">
+        <dxb:MainMenuControl DockPanel.Dock="Top">
+            <dxb:BarSubItem Content="File">
+                <dxb:BarButtonItem Content="New Notebook"
+                                   Command="{Binding NewNotebookCommand}"/>
+                <dxb:BarButtonItem Content="New Note"
+                                   Command="{Binding NewNoteCommand}"
+                                  CommandParameter="{Binding SelectedNoteBook}" />
+                <dxb:BarItemSeparator/>
+                <dxb:BarButtonItem Content="Exit"
+                                   ItemClick="Exit_ItemClick"/>
+            </dxb:BarSubItem>
+        </dxb:MainMenuControl>
 
-                    <dxb:BarButtonItem Content="New Notebook"/>
-                    <dxb:BarButtonItem Content="New Note"/>
-                </dxb:BarItemMenuHeader>
+        <dx:DXListBox DockPanel.Dock="Left"
+                         Width="140"
+                      ItemsSource="{Binding Notebooks}">
+            <dx:DXListBox.ItemTemplate>
+                <dxg:DefaultDataTemplate>
+                    <dxg:FixedTotalSummaryItemsTextBlock SummaryText="{Binding Name}"/>
+                </dxg:DefaultDataTemplate>
+            </dx:DXListBox.ItemTemplate>
+        </dx:DXListBox>
+        <dx:DXListBox DockPanel.Dock="Left"
+                  Width="140"
+                      ItemsSource="{Binding Notes}">
+            <dx:DXListBox.ItemTemplate>
+                <dxg:DefaultDataTemplate>
+                    <dxg:FixedTotalSummaryItemsTextBlock SummaryText="{Binding Title}"/>
+                </dxg:DefaultDataTemplate>
+            </dx:DXListBox.ItemTemplate>
 
-            </dxb:MainMenuControl>
-          
-        </Menu>
-        <Grid>
-            
-        </Grid>
+        </dx:DXListBox>
+        <dxb:ToolBarControl DockPanel.Dock="Top">
+            <dxb:ToolbarListItem>
+                <dxb:BarButtonItem Content="Speech"
+                   ItemClick="SpeechButton_Click"/>
+            </dxb:ToolbarListItem>
+        </dxb:ToolBarControl>
+        <Grid/>
     </dx:DXDockPanel>
 </dx:ThemedWindow>
