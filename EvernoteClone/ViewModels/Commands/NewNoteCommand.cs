@@ -7,7 +7,11 @@ namespace EvernoteClone.ViewModels.Commands
     public class NewNoteCommand : ICommand
     {
         public NotesVM VM { get; set; }
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove {  CommandManager.RequerySuggested -= value;}
+        }
 
         public NewNoteCommand(NotesVM vM) { VM = vM; }
         public bool CanExecute(object parameter)
