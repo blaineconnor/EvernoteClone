@@ -64,6 +64,7 @@
         </dx:DXListBox>
         <dx:DXListBox DockPanel.Dock="Left"
                   Width="140"
+                      SelectedItem="{Binding selectedNote, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       ItemsSource="{Binding Notes}">
             <dx:DXListBox.ItemTemplate>
                 <dxg:DefaultDataTemplate>
@@ -101,6 +102,9 @@
 
                 <ComboBox x:Name="fontSizeComboBox" Width="50" IsEditable="True"
                           TextBoxBase.TextChanged="fontSizeComboBox_TextChanged"/>
+                <Separator/>
+                <Button x:Name="Save" Content="Save"
+                   Click="Save_Click"/>
             </ToolBar>
         </ToolBarTray>
         <Grid Cursor="IBeam">

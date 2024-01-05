@@ -1,8 +1,11 @@
 ﻿using DevExpress.Xpf.Bars;
 using DevExpress.Xpf.Core;
+using EvernoteClone.ViewModels;
 using Microsoft.CognitiveServices.Speech;
 using Microsoft.CognitiveServices.Speech.Audio;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,15 +22,33 @@ namespace EvernoteClone.Views
     /// </summary>
     public partial class NotesWindow : ThemedWindow
     {
+        NotesVM vm;
         public NotesWindow()
         {
             InitializeComponent();
 
+            vm = Resources["viewModel"] as NotesVM;
+            vm.SelectedNoteChanged += Vm_SelectedNoteChanged;
             var fontFamilies = Fonts.SystemFontFamilies.OrderBy(f => f.Source);
             fontFamilyComboBox.ItemsSource = fontFamilies;
 
             List<double> fontSizes = new List<double>() { 8, 9, 10, 11, 12, 14, 16, 28, 48, 72 };
             fontSizeComboBox.ItemsSource = fontSizes;
+        }
+
+        private void Vm_SelectedNoteChanged(object sender, EventArgs e)
+        {
+            contentRichTextBox.Document.Blocks.Clear();
+            if(vm.selectedNote != null)
+            {
+                if (!string.IsNullOrEmpty(vm.selectedNote.FileLocation))
+                {
+                    FileStream file = new FileStream(vm.selectedNote.FileLocation, FileMode.Open);
+                    var content = new TextRange(contentRichTextBox.Document.ContentStart, contentRichTextBox.Document.ContentEnd);
+                    content.Load(file, DataFormats.Rtf);
+                }
+            }
+           
         }
 
         private void Exit_ItemClick(object sender, ItemClickEventArgs e)
@@ -124,6 +145,19 @@ namespace EvernoteClone.Views
         private void fontSizeComboBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             contentRichTextBox.Selection.ApplyPropertyValue(Inline.FontSizeProperty, fontSizeComboBox.Text);
+        }
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            string rtfFile = Path.Combine(Environment.CurrentDirectory, $"{vm.selectedNote.Id}.rtf");
+
+            vm.selectedNote.FileLocation = rtfFile;
+            DatabaseHelper.Update(vm.selectedNote);
+
+
+            FileStream fileStream = new FileStream(rtfFile, FileMode.Create);
+            var content = new TextRange(contentRichTextBox.Document.ContentStart, contentRichTextBox.Document.ContentEnd);
+            content.Save(fileStream, DataFormats.Rtf);
         }
     }
 }
