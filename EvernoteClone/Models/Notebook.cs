@@ -1,52 +1,13 @@
 ﻿using SQLite;
-using System.ComponentModel;
 
 namespace EvernoteClone.Models
 {
-    public class Notebook : INotifyPropertyChanged
+    public class Notebook
     {
-        private int id;
         [PrimaryKey, AutoIncrement]
-        public int Id
-        {
-            get { return id; }
-            set
-            {
-                id = value;
-                OnPropertyChanged("Id");
-            }
-        }
-
-        private int userId;
+        public int Id { get; set; }
         [Indexed]
-        public int UserId
-        {
-            get { return userId; }
-            set
-            {
-                userId = value;
-                OnPropertyChanged("UserId");
-            }
-        }
-
-        private string name;
-
-        public string Name
-        {
-            get { return name; }
-            set
-            {
-                name = value;
-                OnPropertyChanged("Name");
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
+        public int UserId { get; set; }
+        public string Name { get; set; }
     }
 }

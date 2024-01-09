@@ -9,8 +9,6 @@ namespace EvernoteClone.Views.UserControllers
     /// </summary>
     public partial class DisplayNotebook : UserControl
     {
-
-
         public Notebook Notebook
         {
             get { return (Notebook)GetValue(MyNotebookProperty); }

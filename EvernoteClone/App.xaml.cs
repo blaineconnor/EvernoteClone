@@ -12,5 +12,6 @@ namespace EvernoteClone
     /// </summary>
     public partial class App : Application
     {
+        public static string UserId = string.Empty;
     }
 }

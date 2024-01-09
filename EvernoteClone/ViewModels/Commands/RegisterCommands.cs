@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EvernoteClone.Models;
+using System;
 using System.Windows.Input;
 
 namespace EvernoteClone.ViewModels.Commands
@@ -15,12 +16,20 @@ namespace EvernoteClone.ViewModels.Commands
 
         public bool CanExecute(object parameter)
         {
+            User user = parameter as User;
+            if(user == null)            
+                return false;
+            if(string.IsNullOrEmpty(user.Username) ) return false;
+            if(string.IsNullOrEmpty(user.Password) ) return false;
+            if(string.IsNullOrEmpty(user.ConfirmPassword)) return false;
+            if(user.Password != user.ConfirmPassword) return false;
+            
             return true;
         }
 
         public void Execute(object parameter)
         {
-            //TODO: Login functionality
+            VM.Register();
         }
     }
 }

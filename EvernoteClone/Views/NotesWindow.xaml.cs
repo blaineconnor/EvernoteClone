@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -34,6 +33,17 @@ namespace EvernoteClone.Views
 
             List<double> fontSizes = new List<double>() { 8, 9, 10, 11, 12, 14, 16, 28, 48, 72 };
             fontSizeComboBox.ItemsSource = fontSizes;
+        }
+
+        protected override void OnActivated(EventArgs e)
+        {
+            base.OnActivated(e);
+            if(string.IsNullOrEmpty(App.UserId))
+            {
+                LoginWindow loginW = new LoginWindow();
+                loginW.ShowDialog();
+                vm.GetNotebooks();
+            }
         }
 
         private void Vm_SelectedNoteChanged(object sender, EventArgs e)
