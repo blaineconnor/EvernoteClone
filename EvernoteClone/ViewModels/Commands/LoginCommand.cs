@@ -6,7 +6,7 @@ namespace EvernoteClone.ViewModels.Commands
 {
     public class LoginCommand : ICommand
     {
-        public  LoginVM VM { get; set; }
+        public LoginVM VM { get; set; }
 
         public event EventHandler CanExecuteChanged
         {
@@ -18,17 +18,15 @@ namespace EvernoteClone.ViewModels.Commands
         public bool CanExecute(object parameter)
         {
             User user = parameter as User;
-            if(user == null)            
-                return false;
-            if(string.IsNullOrEmpty(user.Username) ) return false;
-            if(string.IsNullOrEmpty(user.Password) ) return false;
-            
+            if (user == null) return false;
+            if (string.IsNullOrEmpty(user.Username)) return false;
+            if (string.IsNullOrEmpty(user.Password)) return false;
             return true;
         }
 
         public void Execute(object parameter)
         {
-           VM.Login();
+            VM.Login();
         }
     }
 }

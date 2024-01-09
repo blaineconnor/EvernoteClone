@@ -8,30 +8,129 @@ namespace EvernoteClone.ViewModels
 {
     public class LoginVM : INotifyPropertyChanged
     {
-		private bool isShowRegister = false;
+        private bool isShowRegister = false;
 
-		private User user;
+        private User user;
+        public User User
+        {
+            get { return user; }
+            set
+            {
+                user = value;
+                OnPropertyChanged("User");
+            }
+        }
 
-		public User User
-		{
-			get { return user; }
-			set { user = value; }
-		}
+        private string username;
+        public string Username
+        {
+            get { return username; }
+            set
+            {
+                username = value;
+                User = new User
+                {
+                    Username = username,
+                    Password = this.Password,
+                    Name = this.Name,
+                    Lastname = this.Lastame,
+                    ConfirmPassword = this.ConfirmPassword
+                };
+                OnPropertyChanged("Username");
+            }
+        }
 
-		private Visibility loginVis;
+        private string password;
+        public string Password
+        {
+            get { return password; }
+            set
+            {
+                password = value;
+                User = new User
+                {
+                    Username = this.Username,
+                    Password = password,
+                    Name = this.Name,
+                    Lastname = this.Lastame,
+                    ConfirmPassword = this.ConfirmPassword
+                };
+                OnPropertyChanged("Password");
+            }
+        }
+
+        private string name;
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                name = value;
+                User = new User
+                {
+                    Username = this.Username,
+                    Password = this.Password,
+                    Name = name,
+                    Lastname = this.Lastame,
+                    ConfirmPassword = this.ConfirmPassword
+                };
+                OnPropertyChanged("Name");
+            }
+        }
+
+        private string lastname;
+        public string Lastame
+        {
+            get { return lastname; }
+            set
+            {
+                lastname = value;
+                User = new User
+                {
+                    Username = this.Username,
+                    Password = this.Password,
+                    Name = this.Name,
+                    Lastname = lastname,
+                    ConfirmPassword = this.ConfirmPassword
+                };
+                OnPropertyChanged("Lastame");
+            }
+        }
+
+        private string confirmPassword;
+        public string ConfirmPassword
+        {
+            get { return confirmPassword; }
+            set
+            {
+                confirmPassword = value;
+                User = new User
+                {
+                    Username = this.Username,
+                    Password = this.Password,
+                    Name = this.Name,
+                    Lastname = this.Lastame,
+                    ConfirmPassword = confirmPassword
+                };
+                OnPropertyChanged("ConfirmPassword");
+            }
+        }
+
+        private Visibility loginVis;
         private Visibility registerVis;
 
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public Visibility LoginVis
-		{
-			get { return loginVis; }
-			set { 
-				loginVis = value;
-				OnPropertyChanged("LoginVis");
-			}
-		}
+        {
+            get { return loginVis; }
+            set
+            {
+                loginVis = value;
+                OnPropertyChanged("LoginVis");
+            }
+        }
         public Visibility RegisterVis
         {
             get { return registerVis; }
@@ -48,41 +147,42 @@ namespace EvernoteClone.ViewModels
         public ShowRegisterCommand ShowRegisterCommand { get; set; }
 
         public LoginVM()
-		{
-			LoginVis = Visibility.Visible;
-			RegisterVis = Visibility.Collapsed;
-			RegisterCommands = new RegisterCommands(this);
-			LoginCommand = new LoginCommand(this);
-			ShowRegisterCommand = new ShowRegisterCommand(this);
-		}
+        {
+            LoginVis = Visibility.Visible;
+            RegisterVis = Visibility.Collapsed;
+            RegisterCommands = new RegisterCommands(this);
+            LoginCommand = new LoginCommand(this);
+            ShowRegisterCommand = new ShowRegisterCommand(this);
+            User = new User();
+        }
 
-		public void SwitchViews()
-		{
-			isShowRegister = !isShowRegister;
-			if(isShowRegister)
-			{
-				RegisterVis = Visibility.Visible;
-				LoginVis = Visibility.Collapsed;
-			}
-			else
-			{
-				RegisterVis = Visibility.Collapsed;
-				LoginVis = Visibility.Visible;
-			}
-		}
+        public void SwitchViews()
+        {
+            isShowRegister = !isShowRegister;
+            if (isShowRegister)
+            {
+                RegisterVis = Visibility.Visible;
+                LoginVis = Visibility.Collapsed;
+            }
+            else
+            {
+                RegisterVis = Visibility.Collapsed;
+                LoginVis = Visibility.Visible;
+            }
+        }
 
-		public void Login()
-		{
+        public void Login()
+        {
 
-		}
+        }
         public void Register()
         {
 
         }
 
         private void OnPropertyChanged(string propertyName)
-		{
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-		}
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

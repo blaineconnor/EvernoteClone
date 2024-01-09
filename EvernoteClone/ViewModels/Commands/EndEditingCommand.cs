@@ -22,7 +22,7 @@ namespace EvernoteClone.ViewModels.Commands
         {
             Notebook notebook = parameter as Notebook;
             if (notebook != null)
-            VM.StopEditing(notebook);
+                VM.StopEditing(notebook);
         }
     }
 }
