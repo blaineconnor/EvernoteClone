@@ -1,6 +1,7 @@
 ﻿
 using EvernoteClone.Models;
 using EvernoteClone.ViewModels.Commands;
+using System;
 using System.ComponentModel;
 using System.Windows;
 
@@ -141,7 +142,7 @@ namespace EvernoteClone.ViewModels
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
+        public event EventHandler Authenticated;
 
         public RegisterCommands RegisterCommands { get; set; }
 
@@ -175,13 +176,22 @@ namespace EvernoteClone.ViewModels
             }
         }
 
-        public void Login()
+        public async void Login()
         {
-
+           bool result =  await FirebaseAuthHelper.Login(User);
+            if (result)
+            {
+                Authenticated?.Invoke(this, new EventArgs());
+            }
         }
         public async void Register()
         {
-            await FirebaseAuthHelper.Register(User);
+            bool result = await FirebaseAuthHelper.Register(User);
+            if (result)
+            {
+                Authenticated?.Invoke(this, new EventArgs());
+
+            }
         }
 
         private void OnPropertyChanged(string propertyName)

@@ -75,18 +75,19 @@ namespace EvernoteClone.ViewModels
             GetNotebooks();
         }
 
-        public void CreateNotebook()
+        public async void CreateNotebook()
         {
             Notebook newNotebook = new Notebook
             {
-                Name = "New Notebook"
+                Name = "New Notebook",
+                UserId = App.UserId
             };
-            DatabaseHelper.Insert(newNotebook);
+            await DatabaseHelper.Insert(newNotebook);
 
             GetNotebooks();
         }
 
-        public void CreateNote(int notebookId)
+        public async void CreateNote(int notebookId)
         {
             Note newNote = new Note
             {
@@ -96,12 +97,12 @@ namespace EvernoteClone.ViewModels
                 Title = $"Note for {DateTime.Now}"
             };
 
-            DatabaseHelper.Insert(newNote);
+            await DatabaseHelper.Insert(newNote);
             GetNotes();
         }
         public void GetNotebooks()
         {
-            var notebooks = DatabaseHelper.Read<Notebook>();
+            var notebooks = DatabaseHelper.Read<Notebook>().Where(n=>n.UserId == App.UserId).ToList();
             Notebooks.Clear();
             foreach (var notebook in notebooks)
             {
